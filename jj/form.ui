@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>361</width>
+    <height>399</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="Save">
+   <property name="geometry">
+    <rect>
+     <x>244</x>
+     <y>360</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancel">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>360</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="Name">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>339</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="accessibleDescription">
+    <string/>
+   </property>
+   <property name="text">
+    <string>Name:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>339</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Family:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="Gender">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>339</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>22</height>
+    </size>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string notr="true">Select One</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Male</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Female</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="Code">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>339</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nathional Code:</string>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="Birth">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>341</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="dateTime">
+    <datetime>
+     <hour>0</hour>
+     <minute>0</minute>
+     <second>0</second>
+     <year>2024</year>
+     <month>1</month>
+     <day>1</day>
+    </datetime>
+   </property>
+   <property name="maximumDateTime">
+    <datetime>
+     <hour>20</hour>
+     <minute>29</minute>
+     <second>59</second>
+     <year>2024</year>
+     <month>12</month>
+     <day>31</day>
+    </datetime>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
