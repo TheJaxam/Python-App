@@ -67,7 +67,7 @@ class Ui_Sign_UP(object):
             "RePassword" : RePassword
         }
         if Password == RePassword:
-            with open(r"C:\Users\kondo\Desktop\vm\Login & Sign-Up\Save.json",mode="w") as file:
+            with open(r"Login & Sign-Up\Save.json",mode="w") as file:
                 json.dump(SAVEdict, file)
             exit()
         else :
