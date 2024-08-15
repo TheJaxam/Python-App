@@ -61,7 +61,7 @@ class Ui_Jax(object):
     def Login_B(self):
         User = self.UserName.text()
         Pass = self.Password.text()
-        with open(r"C:\Users\kondo\Desktop\vm\Login & Sign-Up\Save.json", mode="r") as file:
+        with open(r"Login & Sign-Up\Save.json", mode="r") as file:
             load = dict(json.load(file))
         if User == load["UserN"] and Pass == load["Password"]:
             print("WELLCOME BACK!")
