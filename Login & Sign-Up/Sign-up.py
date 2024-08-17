@@ -61,20 +61,26 @@ class Ui_Sign_UP(object):
         UserName = self.UserName.text()
         Password = self.Password.text()
         RePassword = self.RePassword.text()
+
         SAVEdict = {
             "UserN" : UserName,
             "Password" : Password,
             "RePassword" : RePassword
         }
+
         if Password == RePassword:
-            with open(r"Login & Sign-Up\Save.json",mode="w") as file:
-                json.dump(SAVEdict, file)
+            with open("Save.json", mode="r") as file:
+                List = json.load(file)
+                List.append(SAVEdict)
+            file = open("Save.json", mode="w")
+            json.dump(List ,file)
             exit()
         else :
             self.RePassword.setText("")
             self.Password.setText("")
             self.Password.setPlaceholderText("Password And RePassword Aren't Same!")
-
+        
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
