@@ -61,20 +61,21 @@ class Ui_Jax(object):
     def Login_B(self):
         User = self.UserName.text()
         Pass = self.Password.text()
-        with open(r"Login & Sign-Up\Save.json", mode="r") as file:
-            load = dict(json.load(file))
-        if User == load["UserN"] and Pass == load["Password"]:
-            print("WELLCOME BACK!")
-            exit()
-        else:
-            self.UserName.setText("")
-            self.Password.setText("")
-            self.label_2.setText(("Password Or UserName Is Wrong!"))
-            self.EROR2.setText(("Password Or UserName Is Wrong!"))
-            self.label_2.setGeometry(QtCore.QRect(20, 100, 301, 31))
-            self.EROR2.setGeometry(QtCore.QRect(20, 180, 301, 31))
-            self.pushButton.clicked.connect(self.quit)
-            self.pushButton.setText("Come Back Again!")
+        with open("Save.json", mode="r") as file:
+            load = json.load(file)
+        for i in load:    
+            if User == i["UserN"] and Pass == i["Password"]:
+                print("WELLCOME BACK!")
+                exit()
+            else:
+                self.UserName.setText("")
+                self.Password.setText("")
+                self.label_2.setText(("Password Or UserName Is Wrong!"))
+                self.EROR2.setText(("Password Or UserName Is Wrong!"))
+                self.label_2.setGeometry(QtCore.QRect(20, 100, 301, 31))
+                self.EROR2.setGeometry(QtCore.QRect(20, 180, 301, 31))
+                self.pushButton.clicked.connect(self.quit)
+                self.pushButton.setText("Come Back Again!")
 
     def quit(self):
         exit()
