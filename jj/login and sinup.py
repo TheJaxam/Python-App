@@ -112,6 +112,10 @@ class Ui_Sign_Up(QtWidgets.QWidget):
         self.UserName.setGeometry(QtCore.QRect(10, 60, 321, 31))
         self.UserName.setObjectName("UserName")
         self.UserName.setPlaceholderText("Write Your User Name")
+        self.label = QtWidgets.QLabel()
+        self.label.setGeometry(QtCore.QRect(60, 9, 221, 31))
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setObjectName("label")
         self.Password = QtWidgets.QLineEdit()
         self.Password.setEnabled(True)
         self.Password.setGeometry(QtCore.QRect(10, 130, 321, 31))
@@ -128,6 +132,7 @@ class Ui_Sign_Up(QtWidgets.QWidget):
         self.label.setGeometry(QtCore.QRect(60, 9, 221, 31))
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
+
         self.pushButton.setText("Sign-Up")
         self.label.setText( "WELLCOME")
         centeralwidget.addWidget(self.label)
@@ -146,27 +151,37 @@ class Ui_Sign_Up(QtWidgets.QWidget):
         UserName = self.UserName.text()
         Password = self.Password.text()
         RePassword = self.RePassword.text()
+        
 
         SAVEdict = {
             "UserN" : UserName,
             "Password" : Password,
             "RePassword" : RePassword
         }
-
-        if Password == RePassword:
-            with open("Save.json", mode="r") as file:
-                List = json.load(file)
-                List.append(SAVEdict)
-            file = open("Save.json", mode="w")
-            json.dump(List ,file)
-            exit()
-        else :
-            self.RePassword.setText("")
-            self.Password.setText("")
-            self.Password.setPlaceholderText("Password And RePassword Aren't Same!")
-        if self.x is None:
-            self.x = After_Login()
-        self.x.show()
+        with open("Save.json", mode="r") as file:
+            load = json.load(file)    
+        TUNAME= False
+        if UserName != "" and Password != "":
+            for i in load:    
+                if UserName == i["UserN"]:
+                    TUNAME = True
+            if Password == RePassword and TUNAME == False :
+                with open("Save.json", mode="r") as file:
+                    List = json.load(file)
+                    List.append(SAVEdict)
+                file = open("Save.json", mode="w")
+                json.dump(List ,file)
+                exit()
+            else :
+                self.UserName.setText("UserName In Already Taket")
+                self.RePassword.setText("")
+                self.Password.setText("")
+                self.Password.setPlaceholderText("Password And RePassword Aren't Same!")
+        else:
+            print("Inputs Shouldn't Be Empty!")
+        # if self.x is None:
+        #     self.x = After_Login()
+        # self.x.show()
 class After_Login(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()  
