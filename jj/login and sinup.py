@@ -8,6 +8,8 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 import json
+import hashlib
+
 
 User_Loged = None
 class Ui_login(QtWidgets.QMainWindow):
@@ -76,7 +78,7 @@ class Ui_login(QtWidgets.QMainWindow):
             load = json.load(file)
         Log = False
         for i in load:    
-            if User == i["UserN"] and Pass == i["Password"]:
+            if User == i["UserN"] and hashlib.sha256(Pass.encode('utf-8')).hexdigest() == i["Password"]:
                 global User_Loged
                 User_Loged = User
                 print("WELLCOME BACK!")
@@ -163,8 +165,9 @@ class Ui_Sign_Up(QtWidgets.QWidget):
 
         SAVEdict = {
             "UserN" : UserName,
-            "Password" : Password
+            "Password" : hashlib.sha256(Password.encode('utf-8')).hexdigest()
         }
+        
         with open("Save.json", mode="r") as file:
             load = json.load(file)    
         TUNAME= False
@@ -172,18 +175,29 @@ class Ui_Sign_Up(QtWidgets.QWidget):
             for i in load:    
                 if UserName == i["UserN"]:
                     TUNAME = True
-            if Password == RePassword and TUNAME == False :
-                with open("Save.json", mode="r") as file:
-                    List = json.load(file)
-                    List.append(SAVEdict)
-                file = open("Save.json", mode="w")
-                json.dump(List ,file)
-                self.close()
-            else :
-                self.UserName.setText("UserName In Already Taket")
-                self.RePassword.setText("")
-                self.Password.setText("")
-                self.Password.setPlaceholderText("Password And RePassword Aren't Same!")
+            
+            PassRule = False
+            PassRL = ["@","#","$"]
+            if len(Password) >= 8:
+                for i in Password:
+                    if i in PassRL:
+                        PassRule = True
+                        break
+                if Password == RePassword and TUNAME == False and PassRule == True:
+                    with open("Save.json", mode="r") as file:
+                        List = json.load(file)
+                        List.append(SAVEdict)
+                    file = open("Save.json", mode="w")
+                    json.dump(List ,file)
+                    self.close()
+            
+                else :
+                    self.UserName.setText("UserName In Already Taket")
+                    self.RePassword.setText("")
+                    self.Password.setText("")
+                    self.Password.setPlaceholderText("Password And RePassword Aren't Same!")
+            else:
+                print("Password Must Be More Than 8 And @,#,$ Charecters!!")
         else:
             print("Inputs Shouldn't Be Empty!")
 
@@ -265,19 +279,29 @@ class Reset_Password(QtWidgets.QWidget):
         Old_Pass = self.Old_Password.text()
         NPass = self.Password.text()
         NRePass = self.RePassword.text()
-        
+        PassRule = False
+        PassRL = ["@","#","$"]
+        if len(Old_Pass) >= 8 and len(NPass) >= 8 and len(NRePass) >= 8:
+            for i in NPass:
+                if i in PassRL:
+                    PassRule = True
+                    break
         if Old_Pass != "" and NPass != "" :
-                if NPass == NRePass:
-                    with open("Save.json", mode="r") as file:
-                        load = json.load(file)
-                    for i in load:
-                        if Old_Pass == i["Password"] and User_Loged == i["UserN"]:
-                            i["Password"] = NPass
-                        
-                            file = open("Save.json", mode="w")
-                            json.dump(load ,file)
-                            self.close()
-                        
+                if NPass == NRePass :
+                    if PassRule == True:
+                        with open("Save.json", mode="r") as file:
+                            load = json.load(file)
+                        for i in load:
+                            if hashlib.sha256(Old_Pass.encode('utf-8')).hexdigest() == i["Password"] and User_Loged == i["UserN"]:
+                                i["Password"] = hashlib.sha256(NPass.encode('utf-8')).hexdigest()
+
+                                file = open("Save.json", mode="w")
+                                json.dump(load ,file)
+                                self.close()
+                    else:
+                        print("Password Must Be More Than 8 And @,#,$ Charecters!!")
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
