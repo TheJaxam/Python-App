@@ -113,6 +113,7 @@ class Ui_login(QtWidgets.QMainWindow):
 class Ui_Sign_Up(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+        self.resize(342, 357)
         centeralwidget = QtWidgets.QVBoxLayout()
         self.pushButton = QtWidgets.QPushButton()
         self.pushButton.setGeometry(QtCore.QRect(100, 270, 151, 51))
@@ -204,6 +205,7 @@ class Ui_Sign_Up(QtWidgets.QWidget):
 class Dashboard(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+        self.resize(342, 357)
         centeralwidget = QtWidgets.QVBoxLayout() 
         self.label = QtWidgets.QLabel()
         self.label.setGeometry(QtCore.QRect(60, 9, 221, 31))
@@ -215,22 +217,91 @@ class Dashboard(QtWidgets.QWidget):
         self.RPBTN.setObjectName("RPBTN")
         self.RPBTN.setText("ResetPassword")
         self.RPBTN.clicked.connect(self.ResetPass)
+        self.PLBTN = QtWidgets.QPushButton()
+        self.RPBTN.setObjectName("PLBTN")
+        self.PLBTN.setObjectName("pushButton")
+        self.PLBTN.clicked.connect(self.PassList)
         centeralwidget.addWidget(self.label)
+        centeralwidget.addWidget(self.PLBTN)
         centeralwidget.addWidget(self.RPBTN)
         self.setLayout(centeralwidget)
         self.S=None
+        self.X= None
     def Change_Label(self):
         global User_Loged
         self.label.setText(f'Wellcome {User_Loged}!!')
-        
+
+    def PassList(self):
+        if self.X is None:
+            self.X =Password_List()
+        self.X.show()
+
     def ResetPass(self):
         if self.S is None:
             self.S = Reset_Password()
         self.S.show()
 
+class Password_List(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.resize(342, 357)
+        centeralwidget = QtWidgets.QVBoxLayout()
+        self.Pass_Combo = QtWidgets.QComboBox()
+        self.APBTN = QtWidgets.QPushButton()
+        self.APBTN.setObjectName("")
+        self.APBTN.setText("Add")
+        self.APBTN.clicked.connect(self.AddList)
+        self.EPBTN = QtWidgets.QPushButton()
+        self.EPBTN.setObjectName("Edit")
+        self.EPBTN.setText("Edit")
+        self.SHPBTN = QtWidgets.QPushButton()
+        self.SHPBTN.setObjectName("Show")
+        self.SHPBTN.setText("Show")
+        self.DPBTN = QtWidgets.QPushButton()
+        self.DPBTN.setObjectName("Delet")
+        self.DPBTN.setText("Delet")
+        self.A = None
+        self.E = None
+        self.SH = None
+        self.D = None
+
+        centeralwidget.addWidget(self.Pass_Combo)
+        centeralwidget.addWidget(self.APBTN)
+        centeralwidget.addWidget(self.EPBTN)
+        centeralwidget.addWidget(self.SHPBTN)
+        centeralwidget.addWidget(self.DPBTN)
+        self.setLayout(centeralwidget)
+                                 
+    def AddList(self):
+        if self.A is None:
+            self.A=Add_Password()
+        self.A.show()
+            
+class Add_Password(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        centeralwidget = QtWidgets.QVBoxLayout()
+        self.PassName = QtWidgets.QLineEdit()
+        self.PassName.setGeometry(QtCore.QRect(10, 130, 321, 31))
+        self.PassName.setEchoMode(QtWidgets.QLineEdit.EchoMode.Normal)
+        self.PassName.setObjectName("PassName")
+        self.PassName.setPlaceholderText("Write A Name For Your Password!")
+        self.PassWord = QtWidgets.QLineEdit()
+        self.PassWord.setGeometry(QtCore.QRect(10, 200, 321, 31))
+        self.PassWord.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
+        self.PassWord.setObjectName("PassWord")
+        self.PassWord.setPlaceholderText("Write Your Password!")
+        self.Add = QtWidgets.QPushButton()
+        self.Add.setText("Add")
+        self.Add.clicked.connect(Add_Pass())
+        centeralwidget.addWidget(self.PassName)
+        centeralwidget.addWidget(self.PassWord)
+    # def Add_Pass(self):
+
 class Reset_Password(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+        self.resize(342, 357)
         centeralwidget = QtWidgets.QVBoxLayout()
         self.Old_Password = QtWidgets.QLineEdit()
         self.Old_Password.setEnabled(True)
